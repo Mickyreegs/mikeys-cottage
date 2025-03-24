@@ -1,12 +1,23 @@
 /* Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Lobster&family=Oswald:wght@200..700&display=swap');
 
+
+/* Header Styling*/
 #logo {
     background: rgb(203, 245, 245);
     color: rgb(245, 181, 113);
     font-family: lobster, sans-serif;
 }
 
+/*Navbar Styling*/
+.navbar {
+    background-color: rgb(251, 251, 250);
+    color: rgb(245, 181, 113);
+    font-family: lobster, sans-serif;
+}
+
+
+/* Slideshow Styling*/
 #slideshow {
     height: 400px;
     overflow: hidden;
@@ -21,7 +32,9 @@
     object-fit: contain;
 }
 
-.corporate-packages {
+
+/* Landing Page DIV styling*/
+.cake-selection {
     height: 400px;
     background-image: url("../assets/images/corporate/Corporate\ Selection.jpg");
     background-size: cover;
