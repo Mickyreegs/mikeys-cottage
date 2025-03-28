@@ -4,11 +4,11 @@
 
 /* Header Styling */
 #logo {
-    background: linear-gradient(to right, rgb(203, 245, 245), rgb(239, 237, 233));
-    color: rgb(91, 51, 29);
+    background: linear-gradient(to right, rgb(85, 45, 25), rgb(120, 75, 50));
+    color: rgb(245, 242, 229);
     font-family: "Lobster", sans-serif;
     font-size: 2.5rem;
-    text-shadow: 1px 1px rgb(245, 181, 113); 
+    text-shadow: 2px 2px rgb(225, 131, 83);
     padding: 10px 20px;
     border-bottom: 2px solid rgb(245, 181, 113);
 }
@@ -75,7 +75,7 @@
 
 /* Reviews Section Styling */
 .reviews {
-    background: linear-gradient(to right, rgb(203, 245, 245), rgb(239, 237, 233));
+    background: linear-gradient(to right, rgb(245, 222, 179), rgb(245, 241, 227));
     color: rgb(91, 51, 29); 
     font-family: "Lobster", sans-serif; 
     text-align: center;
@@ -95,8 +95,8 @@
 }
 
 .reviews button {
-    background-color: rgb(245, 181, 113); 
-    color: rgb(91, 51, 29);
+    background-color: rgb(120, 75, 50);
+    color: rgb(245, 242, 229); 
     font-family: "Lobster", sans-serif;
     border: none;
     padding: 10px 20px;
@@ -106,14 +106,14 @@
 }
 
 .reviews button:hover {
-    background-color: rgb(200, 100, 50);
+    background-color: rgb(85, 45, 25); 
     color: white;
     cursor: pointer;
 }
 
 /* Footer Section Styling */
 .footer {
-    background-color: rgb(245, 242, 229); 
+    background-color: rgb(245, 242, 229) !important; 
     color: rgb(91, 51, 29); 
     font-family: "Oswald", sans-serif; 
 }
@@ -153,4 +153,57 @@
     text-align: center;
     font-size: 0.85rem;
     margin-top: 10px;
+}
+
+/*Shop Section*/
+.shop-section {
+    background-color: rgb(245, 242, 229); 
+    color: rgb(91, 51, 29); 
+    font-family: "Lobster", sans-serif; 
+    text-align: center; 
+    padding: 30px 0;
+}
+
+.shop-section h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px rgb(245, 181, 113); 
+}
+
+.shop-section .card {
+    background-color: rgb(245, 222, 179); 
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+    border: none; 
+    transition: transform 0.3s ease; 
+}
+
+.shop-section .card:hover {
+    transform: scale(1.05); 
+}
+
+.shop-section .card-title {
+    font-family: "Lobster", sans-serif; 
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.shop-section .card-text {
+    font-family: "Oswald", sans-serif;
+    font-size: 1rem;
+}
+
+.shop-section button {
+    background-color: rgb(120, 75, 50);
+    color: rgb(245, 242, 229);
+    font-family: "Lobster", sans-serif;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    transition: background-color 0.3s ease;
+}
+
+.shop-section button:hover {
+    background-color: rgb(85, 45, 25);
+    color: white;
+    cursor: pointer;
 }
