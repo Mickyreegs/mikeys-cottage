@@ -11,7 +11,9 @@
     text-shadow: 2px 2px rgb(225, 131, 83);
     padding: 10px 20px;
     border-bottom: 2px solid rgb(245, 181, 113);
+    text-align: center;
 }
+
 
 /* Navbar Styling */
 .navbar {
@@ -207,3 +209,29 @@
     color: white;
     cursor: pointer;
 }
+
+.shop-section .card-img-top {
+    width: 100%;
+    height: 200px; 
+    object-fit: cover; 
+    border-radius: 5px; 
+}
+
+.cart-icon-container {
+    position: relative;
+    font-size: 1.5rem;
+    color: rgb(245, 242, 229); 
+    margin-right: 15px; 
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.cart-icon-container i {
+    cursor: pointer;
+    color: rgb(91, 51, 29) !important;
+}
+
+.cart-icon-container:hover {
+    color: rgb(200, 100, 50) !important; 
+    transform: scale(1.1);
+}
+
