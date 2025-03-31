@@ -1,21 +1,21 @@
 // Select elements
-const cartItemsList = document.getElementById('cartItems'); // List in the modal
-const totalElement = document.getElementById('cartTotal'); // Total price display
-const cartModal = document.getElementById('cartModal'); // Cart modal element
-let cart = []; // Array to store cart items
+const cartItemsList = document.getElementById('cartItems');
+const totalElement = document.getElementById('cartTotal');
+const cartModal = document.getElementById('cartModal'); 
+let cart = []; 
 
 // Add event listener to all "Add to Cart" buttons
 document.querySelectorAll('.add-to-cart').forEach(button => {
     button.addEventListener('click', function () {
-        const name = this.getAttribute('data-name'); // Item name from button
-        const price = parseFloat(this.getAttribute('data-price')); // Item price from button
+        const name = this.getAttribute('data-name'); 
+        const price = parseFloat(this.getAttribute('data-price'));
 
         // Prevent duplicate items in the cart
         const itemExists = cart.find(item => item.name === name);
         if (!itemExists) {
-            cart.push({ name, price }); // Add item to cart if it doesn't exist
+            cart.push({ name, price }); 
         } else {
-            alert(`${name} is already in your cart!`); // Notify user if item is already added
+            alert(`${name} is already in your cart!`); 
             return;
         }
 
@@ -37,7 +37,7 @@ function updateCartDisplay() {
     // Clear the cart display
     cartItemsList.innerHTML = '';
 
-    let total = 0; // Initialize total price
+    let total = 0; 
 
     if (cart.length === 0) {
         // Handle empty cart case
@@ -55,7 +55,7 @@ function updateCartDisplay() {
         li.className = 'list-group-item';
         li.textContent = `${item.name} - €${item.price.toFixed(2)}`;
         cartItemsList.appendChild(li);
-        total += item.price; // Accumulate total price
+        total += item.price; 
     });
 
     // Update the total price in the modal
@@ -64,5 +64,5 @@ function updateCartDisplay() {
 
 // Reset toast message when modal is closed
 cartModal.addEventListener('hidden.bs.modal', function () {
-    document.querySelector('#cartToast .toast-body').textContent = ''; // Clear toast message
+    document.querySelector('#cartToast .toast-body').textContent = ''; 
 });
