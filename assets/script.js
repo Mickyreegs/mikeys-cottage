@@ -10,13 +10,12 @@ document.querySelectorAll('.add-to-cart').forEach(button => {
         const name = this.getAttribute('data-name'); 
         const price = parseFloat(this.getAttribute('data-price'));
 
-        // Prevent duplicate items in the cart
+        // Check if the item already exists in the cart
         const itemExists = cart.find(item => item.name === name);
-        if (!itemExists) {
-            cart.push({ name, price }); 
+        if (itemExists) {
+            itemExists.quantity += 1;
         } else {
-            alert(`${name} is already in your cart!`); 
-            return;
+            cart.push({ name, price, quantity: 1 });
         }
 
         // Show the toast notification
@@ -27,17 +26,15 @@ document.querySelectorAll('.add-to-cart').forEach(button => {
         // Update the toast message
         document.querySelector('#cartToast .toast-body').textContent = `${name} has been added to your cart!`;
 
-        // Update the cart display in the modal
         updateCartDisplay();
     });
 });
 
-// Function to update the cart modal
 function updateCartDisplay() {
     // Clear the cart display
     cartItemsList.innerHTML = '';
 
-    let total = 0; 
+    let total = 0;
 
     if (cart.length === 0) {
         // Handle empty cart case
@@ -50,12 +47,44 @@ function updateCartDisplay() {
     }
 
     // Add each cart item to the modal and calculate the total
-    cart.forEach(item => {
+    cart.forEach((item, index) => {
         const li = document.createElement('li');
         li.className = 'list-group-item';
-        li.textContent = `${item.name} - €${item.price.toFixed(2)}`;
+
+        // Create quantity input field
+        const input = document.createElement('input');
+        input.type = 'number';
+        input.min = '1';
+        input.value = item.quantity;
+        input.className = 'form-control d-inline-block w-25 mx-2';
+
+        // Update quantity when input changes
+        input.addEventListener('change', function () {
+            const newQuantity = parseInt(input.value, 10);
+            if (newQuantity > 0) {
+                item.quantity = newQuantity;
+                updateCartDisplay();
+            } else {
+                alert('Quantity must be at least 1.');
+                input.value = item.quantity;
+            }
+        });
+
+        // Create Remove button
+        const removeButton = document.createElement('button');
+        removeButton.textContent = 'Remove';
+        removeButton.className = 'btn btn-danger btn-sm mx-2';
+        removeButton.addEventListener('click', function () {
+            cart.splice(index, 1);
+            updateCartDisplay();
+        });
+
+        li.textContent = `${item.name} - €${item.price.toFixed(2)} x `;
+        li.appendChild(input);
+        li.appendChild(removeButton);
         cartItemsList.appendChild(li);
-        total += item.price; 
+
+        total += item.price * item.quantity;
     });
 
     // Update the total price in the modal
