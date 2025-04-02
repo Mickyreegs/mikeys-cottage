@@ -1,3 +1,5 @@
+/*----Shop and Cart sections----*/
+
 // Select elements
 const cartItemsList = document.getElementById('cartItems');
 const totalElement = document.getElementById('cartTotal');
@@ -27,6 +29,7 @@ document.querySelectorAll('.add-to-cart').forEach(button => {
         document.querySelector('#cartToast .toast-body').textContent = `${name} has been added to your cart!`;
 
         updateCartDisplay();
+        saveCart(); 
     });
 });
 
@@ -94,4 +97,35 @@ function updateCartDisplay() {
 // Reset toast message when modal is closed
 cartModal.addEventListener('hidden.bs.modal', function () {
     document.querySelector('#cartToast .toast-body').textContent = ''; 
+});
+
+//Save cart to local storage
+function saveCart() {
+    localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+//retrieves the cart and displays it on other pages
+document.addEventListener('DOMContentLoaded', function () {
+    const savedCart = JSON.parse(localStorage.getItem('cart'));
+    if (savedCart) {
+        cart = savedCart; // Restore cart
+        updateCartDisplay();
+    }
+});
+
+/*----Afternoon Tea Section----*/
+//Adding DOMContentLoaded to prevent Uncaught TypeError: Cannot Read Properties of null
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('teaBookingForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const form = this;
+
+        if (form.checkValidity()) {
+            const modal = new bootstrap.Modal(document.getElementById('confirmationModal'));
+            modal.show();
+            form.reset();
+        } else {
+            form.classList.add('was-validated');
+        }
+    });
 });
