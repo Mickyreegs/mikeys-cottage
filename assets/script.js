@@ -1,3 +1,53 @@
+/*----Review Section Modals----*/
+//review form
+document.addEventListener('DOMContentLoaded', function () {
+    const reviewForm = document.getElementById('reviewForm');
+    if (reviewForm) {
+        reviewForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('reviewName').value;
+            const reviewText = document.getElementById('reviewText').value;
+            const stars = [...document.querySelectorAll('#starRating .star')]
+                          .filter(star => star.style.color === 'gold').length;
+
+            const confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
+            document.getElementById('confirmationMessage').textContent = `Thank you, ${name}, for your review! You rated us ${stars} stars.`;
+            confirmationModal.show();
+
+            this.reset();
+        });
+    }
+});
+
+//star reviews
+document.addEventListener('DOMContentLoaded', function () {
+    const stars = document.querySelectorAll('#starRating .star');
+    stars.forEach((star, index) => {
+        star.addEventListener('click', function () {
+            stars.forEach((s, i) => {
+                s.style.color = i <= index ? 'gold' : 'gray'; 
+            });
+        });
+
+        star.addEventListener('mouseover', function () {
+            stars.forEach((s, i) => {
+                s.style.color = i <= index ? 'gold' : 'gray';
+            });
+        });
+
+        star.addEventListener('mouseout', function () {
+            const selectedStars = [...stars].filter(s => s.style.color === 'gold').length;
+            stars.forEach((s, i) => {
+                s.style.color = i < selectedStars ? 'gold' : 'gray';
+            });
+        });
+    });
+});
+
+
+
+
 /*----Shop and Cart sections----*/
 
 // Select elements

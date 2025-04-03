@@ -114,6 +114,17 @@
     cursor: pointer;
 }
 
+.star {
+    font-size: 2rem;
+    cursor: pointer;
+    color: gray;
+}
+
+.star:hover {
+    color: gold;
+}
+
+
 /* Footer Section Styling */
 .footer {
     background-color: rgb(245, 242, 229) !important; 
