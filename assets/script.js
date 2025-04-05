@@ -49,7 +49,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 /*----Shop and Cart sections----*/
-// Select elements
 const cartItemsList = document.getElementById('cartItems');
 const totalElement = document.getElementById('cartTotal');
 const cartModal = document.getElementById('cartModal'); 
@@ -149,8 +148,6 @@ function updateCartDisplay() {
 // Reset toast message when modal is closed
 cartModal.addEventListener('hidden.bs.modal', function () {
     document.querySelector('#cartToast .toast-body').textContent = ''; 
-    //hideModal(); // Call hideModal to manage inert and aria-hidden
-
 });
 
 //Save cart to local storage
@@ -168,7 +165,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 /*----Afternoon Tea Section----*/
-//Adding DOMContentLoaded to prevent Uncaught TypeError: Cannot Read Properties of null
 document.addEventListener('DOMContentLoaded', function () {
     const teaBookingForm = document.getElementById('teaBookingForm');
     const confirmationModalElement = document.getElementById('confirmationModal');
@@ -186,7 +182,5 @@ document.addEventListener('DOMContentLoaded', function () {
                 form.classList.add('was-validated');
             }
         });
-    } else {
-        console.error("Either #teaBookingForm or #confirmationModal is missing in the DOM.");
     }
 });
