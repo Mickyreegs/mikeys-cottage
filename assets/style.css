@@ -4,15 +4,18 @@
 
 /* Header Styling */
 #logo {
-    background: linear-gradient(to right, rgb(85, 45, 25), rgb(120, 75, 50));
-    color: rgb(245, 242, 229);
-    font-family: "Lobster", sans-serif;
-    font-size: 2.5rem;
-    text-shadow: 2px 2px rgb(225, 131, 83);
-    padding: 10px 20px;
-    border-bottom: 2px solid rgb(245, 181, 113);
-    text-align: center;
+    background: #7C4E29; 
+    padding: 10px 20px; 
+    border-bottom: 2px solid rgb(245, 181, 113); 
+    text-align: center; 
 }
+
+#logo img {
+    max-width: 300px; 
+    height: auto; 
+    margin: 10px auto; 
+}
+
 
 
 /* Navbar Styling */
