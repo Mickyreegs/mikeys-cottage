@@ -147,7 +147,24 @@ function updateCartDisplay() {
 // Reset toast message when modal is closed
 cartModal.addEventListener('hidden.bs.modal', function () {
     document.querySelector('#cartToast .toast-body').textContent = ''; 
+    hideModal(); // Call hideModal to manage inert and aria-hidden
+
 });
+
+// Show the modal and update inert/aria-hidden attributes
+function showModal() {
+    cartModal.style.display = 'block';
+    cartModal.removeAttribute('inert');
+    cartModal.setAttribute('aria-hidden', 'false');
+}
+
+// Hide the modal and update inert/aria-hidden attributes
+function hideModal() {
+    cartModal.style.display = 'none';
+    cartModal.setAttribute('inert', '');
+    cartModal.setAttribute('aria-hidden', 'true');
+}
+
 
 //Save cart to local storage
 function saveCart() {
@@ -166,16 +183,23 @@ document.addEventListener('DOMContentLoaded', function () {
 /*----Afternoon Tea Section----*/
 //Adding DOMContentLoaded to prevent Uncaught TypeError: Cannot Read Properties of null
 document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('teaBookingForm').addEventListener('submit', function (e) {
-        e.preventDefault();
-        const form = this;
+    const teaBookingForm = document.getElementById('teaBookingForm');
+    const confirmationModalElement = document.getElementById('confirmationModal');
 
-        if (form.checkValidity()) {
-            const modal = new bootstrap.Modal(document.getElementById('confirmationModal'));
-            modal.show();
-            form.reset();
-        } else {
-            form.classList.add('was-validated');
-        }
-    });
+    if (teaBookingForm && confirmationModalElement) {
+        teaBookingForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const form = this;
+
+            if (form.checkValidity()) {
+                const modal = new bootstrap.Modal(confirmationModalElement);
+                modal.show();
+                form.reset();
+            } else {
+                form.classList.add('was-validated');
+            }
+        });
+    } else {
+        console.error("Either #teaBookingForm or #confirmationModal is missing in the DOM.");
+    }
 });

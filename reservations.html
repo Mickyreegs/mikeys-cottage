@@ -37,7 +37,7 @@
     </nav>
     
     <!--Cart Modal-->
-    <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+    <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" style="display: none;" inert>
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -57,7 +57,7 @@
         </div>
     </div>
     
-    <body>
+    
         <main class="container tea-section my-4">
             <!-- Confirmation Modal -->
             <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
@@ -160,9 +160,9 @@
                             <select class="form-select" id="time" name="time" required>
                                 <option value="" disabled selected>Select time</option>
                                 <option value="12:00">12:00 PM</option>
-                                <option value="12:00">1:00 PM</option>
+                                <option value="13:00">1:00 PM</option>
                                 <option value="14:00">2:00 PM</option>
-                                <option value="12:00">3:00 PM</option>
+                                <option value="15:00">3:00 PM</option>
                                 <option value="16:00">4:00 PM</option>
                             </select>
                             <div class="invalid-feedback">
@@ -181,13 +181,21 @@
                                 Please select a package.
                             </div>
                         </div>
+                        <div class="mb-3">
+                            <label for="package" class="form-label">Allergens</label>
+                            <select class="form-select" id="allergens" name="allergens">
+                                <option value="" selected>None</option>
+                                <option value="coeliac">Coeliac (Gluten Free)</option>
+                                <option value="vegan">Vegan</option>
+                                <option value="dairy">Dairy Free</option>
+                            </select>
+                        </div>
                         <button type="submit" class="btn btn-primary">Book Now</button>
                     </form>
                 </div>
             </section>
         </main>
-    </body>
-    </html>
+
    
 
 
