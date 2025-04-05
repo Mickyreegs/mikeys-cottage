@@ -203,23 +203,21 @@
                         </div>
                     </div>                    
                     </div>
-                    <div class="mb-3">
-                        <label for="allergens" class="form-label">Allergens</label>
-                        <select class="form-select" id="allergens" name="allergens">
-                            <option value="" selected>None</option>
-                            <option value="coeliac">Coeliac (Gluten Free)</option>
-                            <option value="vegan">Vegan</option>
-                            <option value="dairy">Dairy Free</option>
-                        </select>
-                    </div>
-                    <div class="mb-3" id="guest-number-container" style="display: none;">
-                        <label for="guest-number" class="form-label">Number of Guests with this Allergy</label>
-                        <input type="number" class="form-control" id="guest-number" name="guest-number" min="1" placeholder="Enter number of guests">
-                        <div class="invalid-feedback">
-                            Please specify the number of guests with this allergy.
+                    <div id="allergy-container" class="mb-3">
+                        <label class="form-label">Specify Allergies</label>
+                        <div class="d-flex align-items-center mb-2">
+                            <select class="form-select me-2 allergen-select" id="allergens" name="allergens" required>
+                                <option value="" selected>Select an allergen</option>
+                                <option value="coeliac">Coeliac (Gluten Free)</option>
+                                <option value="vegan">Vegan</option>
+                                <option value="dairy">Dairy Free</option>
+                            </select>                            
+                            <input type="number" class="form-control me-2 guest-count" id="guest-number" name="guest-number[]" min="1" placeholder="Number of Guests" required>
+                            <button type="button" class="btn btn-danger remove-allergy" style="display: none;">Remove</button>
                         </div>
                     </div>
                     
+                    <button type="button" id="add-allergy" class="btn btn-primary">Add Another Allergen</button>
                     <button type="submit" class="btn btn-primary">Book Now</button>
                 </form>
             </div>
