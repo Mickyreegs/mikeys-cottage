@@ -49,11 +49,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 /*----Shop and Cart sections----*/
-
 // Select elements
 const cartItemsList = document.getElementById('cartItems');
 const totalElement = document.getElementById('cartTotal');
 const cartModal = document.getElementById('cartModal'); 
+const modal = new bootstrap.Modal(document.getElementById('cartModal'));
 let cart = []; 
 
 // Add event listener to all "Add to Cart" buttons
@@ -117,6 +117,7 @@ function updateCartDisplay() {
             if (newQuantity > 0) {
                 item.quantity = newQuantity;
                 updateCartDisplay();
+                saveCart();
             } else {
                 alert('Quantity must be at least 1.');
                 input.value = item.quantity;
@@ -130,6 +131,7 @@ function updateCartDisplay() {
         removeButton.addEventListener('click', function () {
             cart.splice(index, 1);
             updateCartDisplay();
+            saveCart();
         });
 
         li.textContent = `${item.name} - €${item.price.toFixed(2)} x `;
@@ -147,24 +149,9 @@ function updateCartDisplay() {
 // Reset toast message when modal is closed
 cartModal.addEventListener('hidden.bs.modal', function () {
     document.querySelector('#cartToast .toast-body').textContent = ''; 
-    hideModal(); // Call hideModal to manage inert and aria-hidden
+    //hideModal(); // Call hideModal to manage inert and aria-hidden
 
 });
-
-// Show the modal and update inert/aria-hidden attributes
-function showModal() {
-    cartModal.style.display = 'block';
-    cartModal.removeAttribute('inert');
-    cartModal.setAttribute('aria-hidden', 'false');
-}
-
-// Hide the modal and update inert/aria-hidden attributes
-function hideModal() {
-    cartModal.style.display = 'none';
-    cartModal.setAttribute('inert', '');
-    cartModal.setAttribute('aria-hidden', 'true');
-}
-
 
 //Save cart to local storage
 function saveCart() {
