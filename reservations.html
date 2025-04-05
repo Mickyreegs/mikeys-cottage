@@ -25,7 +25,6 @@
             <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
             <li class="nav-item"><a class="nav-link" href="/shop.html">Shop</a></li>
             <li class="nav-item"><a class="nav-link" href="/bespoke.html">Bespoke Cakes</a></li>
-            <li class="nav-item"><a class="nav-link" href="/corporate.html">Corporate Packages</a></li>
             <li class="nav-item"><a class="nav-link" href="/reservations.html">Afternoon Tea</a></li>
             <li class="nav-item"><a class="nav-link" href="/contact.html">Contact</a></li>
             <li class="nav-item">
@@ -81,7 +80,7 @@
             <h2 class="text-center mb-4">Choose from one of our following packages</h2>
             <div class="container mt-4">
                 <div class="row">
-                    <div class="col-sm-12 col-md-4 col-lg-4">
+                    <div class="col-sm-12 col-md-3 col-lg-3">
                         <div class="card">
                             <img src="/" class="card-img-top" alt="classic tea">
                             <div class="card-body">
@@ -96,7 +95,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-4 col-lg-4">
+                    <div class="col-sm-12 col-md-3 col-lg-3">
                         <div class="card">
                             <img src="/" class="card-img-top" alt="premium tea">
                             <div class="card-body">
@@ -111,7 +110,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-4 col-lg-4">
+                    <div class="col-sm-12 col-md-3 col-lg-3">
                         <div class="card">
                             <img src="/" class="card-img-top" alt="luxury tea">
                             <div class="card-body">
@@ -126,6 +125,21 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-sm-12 col-md-3 col-lg-3">
+                        <div class="card">
+                            <img src="/" class="card-img-top" alt="corporate tea">
+                            <div class="card-body">
+                                <h5 class="card-title">Corporate Tea</h5>
+                                <p class="card-text">€12.5 Per Person (Min. 10)</p>
+                                <ul class="list-unstyled">
+                                    <li>2 tiers</li>
+                                    <li>4 sweet options</li>
+                                    <li>4 savoury options</li>
+                                    <li>Delivered to your premesis</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -135,7 +149,20 @@
                 <h1 class="text-center mb-4">Book Your Afternoon Tea</h1>
                 <form id="teaBookingForm" class="needs-validation" novalidate>
                     <div class="mb-3">
-                        <label for="name" class="form-label">Name</label>
+                        <label for="package" class="form-label">Select Package</label>
+                        <select class="form-select" id="package" name="package" required>
+                            <option value="" disabled selected>Select a package</option>
+                            <option value="classic">Classic Tea - €15 per person</option>
+                            <option value="premium">Premium Tea - €20 per person</option>
+                            <option value="luxury">Luxury Tea - €25 per person</option>
+                            <option value="corporate">Corporate Tea - €12.50 per person (Minimum 10 People)</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Please select a package.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="name" class="form-label" id="name-label">Name</label>
                         <input type="text" class="form-control" id="name" name="name" placeholder="Your name" required>
                         <div class="invalid-feedback">
                             Please enter your name.
@@ -156,6 +183,13 @@
                         </div>
                     </div>
                     <div class="mb-3">
+                        <label for="total-guests" class="form-label">Total Guests</label>
+                        <input type="number" class="form-control" id="total-guests" name="total-guests" min="1" required>
+                        <div class="invalid-feedback">
+                            Please specify the total number of guests.
+                        </div>
+                    </div>                                       
+                    <div class="mb-3">
                         <label for="time" class="form-label">Time</label>
                         <select class="form-select" id="time" name="time" required>
                             <option value="" disabled selected>Select time</option>
@@ -168,21 +202,10 @@
                         <div class="invalid-feedback">
                             Please select a time.
                         </div>
+                    </div>                    
                     </div>
                     <div class="mb-3">
-                        <label for="package" class="form-label">Select Package</label>
-                        <select class="form-select" id="package" name="package" required>
-                            <option value="" disabled selected>Select a package</option>
-                            <option value="classic">Classic Tea - €15 per person</option>
-                            <option value="premium">Premium Tea - €20 per person</option>
-                            <option value="luxury">Luxury Tea - €25 per person</option>
-                        </select>
-                        <div class="invalid-feedback">
-                            Please select a package.
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="package" class="form-label">Allergens</label>
+                        <label for="allergens" class="form-label">Allergens</label>
                         <select class="form-select" id="allergens" name="allergens">
                             <option value="" selected>None</option>
                             <option value="coeliac">Coeliac (Gluten Free)</option>
@@ -190,6 +213,14 @@
                             <option value="dairy">Dairy Free</option>
                         </select>
                     </div>
+                    <div class="mb-3" id="guest-number-container" style="display: none;">
+                        <label for="guest-number" class="form-label">Number of Guests with this Allergy</label>
+                        <input type="number" class="form-control" id="guest-number" name="guest-number" min="1" placeholder="Enter number of guests">
+                        <div class="invalid-feedback">
+                            Please specify the number of guests with this allergy.
+                        </div>
+                    </div>
+                    
                     <button type="submit" class="btn btn-primary">Book Now</button>
                 </form>
             </div>

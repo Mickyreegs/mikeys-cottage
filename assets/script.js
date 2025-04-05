@@ -184,3 +184,72 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
+
+//Date validation
+document.getElementById('date').addEventListener('change', function () {
+    const selectedDate = new Date(this.value);
+    const today = new Date();
+    
+    today.setHours(0, 0, 0, 0);
+    
+    if (selectedDate < today) {
+        alert("You cannot select a date in the past.");
+        this.value = '';
+    }
+});
+
+//Guests and allergen validation
+document.getElementById('allergens').addEventListener('change', function () {
+    const guestNumberContainer = document.getElementById('guest-number-container');
+    const guestNumberInput = document.getElementById('guest-number');
+    
+    if (this.value) {
+        guestNumberContainer.style.display = 'block';
+    } else {
+        guestNumberContainer.style.display = 'none';
+        guestNumberInput.value = '';
+    }
+});
+
+document.getElementById('guest-number').addEventListener('input', function () {
+    const totalGuests = document.getElementById('total-guests').value;
+
+    if (this.value <= 0) {
+        alert("The number of guests with the allergy cannot be 0.");
+        this.value = '';
+    } else if (this.value > totalGuests) {
+        alert("The number of guests with the allergy cannot exceed the total number of guests.");
+        this.value = '';
+    }
+});
+
+document.getElementById('total-guests').addEventListener('input', function () {
+    const guestNumberInput = document.getElementById('guest-number');
+    
+    // Revalidate the allergy guest count if total guests change
+    if (guestNumberInput.value > this.value) {
+        alert("The number of guests with the allergy cannot exceed the total number of guests.");
+        guestNumberInput.value = ''; 
+    }
+});
+
+//corporate rules
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('package').addEventListener('change', function () {
+        const guestInput = document.getElementById('total-guests');
+        const nameLabel = document.getElementById('name-label');
+        const nameInput = document.getElementById('name');
+
+        if (this.value === 'corporate') {
+            guestInput.value = 10; 
+            guestInput.setAttribute('min', 10); 
+            nameLabel.textContent = 'Company Name';
+            nameInput.setAttribute('placeholder', 'Enter company name');
+        } else {
+            guestInput.value = ''; 
+            guestInput.removeAttribute('min'); 
+            nameLabel.textContent = 'Name';
+            nameInput.setAttribute('placeholder', 'Enter name');
+        }
+    });
+});
