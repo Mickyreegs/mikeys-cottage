@@ -164,66 +164,72 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-/*----Afternoon Tea Section----*/
+/*---- Afternoon Tea Section ----*/
 document.addEventListener('DOMContentLoaded', function () {
-    const teaBookingForm = document.getElementById('teaBookingForm');
-    const confirmationModalElement = document.getElementById('confirmationModal');
+    const form = document.getElementById('teaBookingForm');
+    const confirmationModal = document.getElementById('confirmationModal');
     const totalGuestsInput = document.getElementById('total-guests');
     const packageSelect = document.getElementById('package');
     const nameLabel = document.getElementById('name-label');
     const nameInput = document.getElementById('name');
     const allergyContainer = document.getElementById('allergy-container');
     const addAllergyButton = document.getElementById('add-allergy');
-
+    const dateInput = document.getElementById('date');
+    
     let totalAllergicGuests = 0;
 
-    // Form submission validation
-    if (teaBookingForm && confirmationModalElement) {
-        teaBookingForm.addEventListener('submit', function (e) {
-            e.preventDefault();
+    // Validation Functions
+    const validateDateInput = () => {
+        const selectedDate = new Date(dateInput.value);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
 
-            // Validate allergic guests before submitting
-            if (!validateGuestsWithAllergies()) {
-                return; 
-            }
+        if (selectedDate < today) {
+            dateInput.classList.add('is-invalid');
+            alert("Please select a valid date. Dates in the past are not allowed.");
+            return false;
+        }
+        dateInput.classList.remove('is-invalid');
+        return true;
+    };
 
-            const form = this;
-            if (form.checkValidity()) {
-                const modal = new bootstrap.Modal(confirmationModalElement);
-                modal.show();
-                form.reset();
-                totalAllergicGuests = 0; 
-            } else {
-                form.classList.add('was-validated');
-            }
-        });
-    }
-
-    // Validate total guests against allergic guests
-    function validateGuestsWithAllergies() {
+    const validateGuestsWithAllergies = () => {
         const totalGuests = parseInt(totalGuestsInput.value) || 0;
-
-        // Total Allergic Guests
-        const guestCounts = Array.from(allergyContainer.querySelectorAll('.guest-count'))
-            .map(input => parseInt(input.value) || 0);
-        totalAllergicGuests = guestCounts.reduce((sum, count) => sum + count, 0);
-
-        // Validation logic
+        totalAllergicGuests = Array.from(allergyContainer.querySelectorAll('.guest-count'))
+            .reduce((sum, input) => sum + (parseInt(input.value) || 0), 0);
         if (totalAllergicGuests > totalGuests) {
-            alert("The total number of guests with allergies cannot exceed the total number of guests.");
+            alert("The number of guests with allergies cannot exceed the total number of guests.");
             return false;
         }
         return true;
-    }
+    };
 
-    // Add another allergen dynamically
-    addAllergyButton.addEventListener('click', function () {
-        const newAllergyGroup = document.createElement('div');
-        newAllergyGroup.className = 'd-flex align-items-center mb-2';
+    const validateUniqueAllergens = () => {
+        const allergenSelects = Array.from(allergyContainer.querySelectorAll('.allergen-select'));
+        const selectedValues = allergenSelects.map(select => select.value);
+        const uniqueValues = new Set(selectedValues);
 
-        newAllergyGroup.innerHTML = `
+        // If duplicates exist, highlight invalid fields
+        allergenSelects.forEach(select => select.classList.remove('is-invalid'));
+        if (selectedValues.length !== uniqueValues.size) {
+            alert("Allergy already selected!");
+            allergenSelects.forEach(select => {
+                if (selectedValues.filter(value => value === select.value).length > 1) {
+                    select.classList.add('is-invalid');
+                }
+            });
+            return false;
+        }
+        return true;
+    };
+
+    // Add allergies dynamically
+    const addAllergyGroup = () => {
+        const newGroup = document.createElement('div');
+        newGroup.className = 'd-flex align-items-center mb-2';
+        newGroup.innerHTML = `
             <select class="form-select me-2 allergen-select" name="allergens[]" required>
-                <option value="" selected>Select an allergen</option>
+                <option value="">Select an allergen</option>
                 <option value="coeliac">Coeliac (Gluten Free)</option>
                 <option value="vegan">Vegan</option>
                 <option value="dairy">Dairy Free</option>
@@ -231,43 +237,52 @@ document.addEventListener('DOMContentLoaded', function () {
             <input type="number" class="form-control me-2 guest-count" name="guest-number[]" min="1" placeholder="Number of Guests" required>
             <button type="button" class="btn btn-danger remove-allergy">Remove</button>
         `;
+        allergyContainer.appendChild(newGroup);
 
-        allergyContainer.appendChild(newAllergyGroup);
+        const allergenSelect = newGroup.querySelector('.allergen-select');
+        allergenSelect.addEventListener('change', validateUniqueAllergens);
 
-        // Add validation for the new allergen guest count input
-        const guestCountInput = newAllergyGroup.querySelector('.guest-count');
-        guestCountInput.addEventListener('input', function () {
+        newGroup.querySelector('.guest-count').addEventListener('input', validateGuestsWithAllergies);
+        newGroup.querySelector('.remove-allergy').addEventListener('click', () => {
+            allergyContainer.removeChild(newGroup);
             validateGuestsWithAllergies();
+            validateUniqueAllergens();
         });
+    };
 
-        // Add remove functionality for the new allergen group
-        const removeButton = newAllergyGroup.querySelector('.remove-allergy');
-        removeButton.style.display = 'inline-block';
-        removeButton.addEventListener('click', function () {
-            allergyContainer.removeChild(newAllergyGroup);
-            validateGuestsWithAllergies(); // Revalidate after removing group
+    // Corporate Package
+    const updatePackage = () => {
+        const isCorporate = packageSelect.value === 'corporate';
+        totalGuestsInput.value = isCorporate ? 10 : '';
+        totalGuestsInput.setAttribute('min', isCorporate ? 10 : '');
+        nameLabel.textContent = isCorporate ? 'Company Name' : 'Name';
+        nameInput.placeholder = isCorporate ? 'Enter company name' : 'Enter name';
+    };
+
+    // Event Listeners
+    if (form && confirmationModal) {
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            if (!validateDateInput() || !validateGuestsWithAllergies() || !validateUniqueAllergens()) {
+                return; 
+            }
+
+            if (this.checkValidity()) {
+                new bootstrap.Modal(confirmationModal).show();
+                this.reset();
+                totalAllergicGuests = 0;
+            } else {
+                this.classList.add('was-validated');
+            }
         });
-    });
+    }
 
-    // Update corporate package rules
-    packageSelect.addEventListener('change', function () {
-        if (this.value === 'corporate') {
-            totalGuestsInput.value = 10; 
-            totalGuestsInput.setAttribute('min', 10); 
-            nameLabel.textContent = 'Company Name';
-            nameInput.setAttribute('placeholder', 'Enter company name'); 
-
-            validateGuestsWithAllergies(); 
-        } else {
-            totalGuestsInput.value = ''; 
-            totalGuestsInput.removeAttribute('min'); 
-            nameLabel.textContent = 'Name'; 
-            nameInput.setAttribute('placeholder', 'Enter name'); 
-        }
-    });
-
-    // Revalidate allergic guests when total guests input changes
-    totalGuestsInput.addEventListener('input', function () {
+    dateInput?.addEventListener('input', validateDateInput);
+    totalGuestsInput?.addEventListener('input', validateGuestsWithAllergies);
+    packageSelect?.addEventListener('change', () => {
+        updatePackage();
         validateGuestsWithAllergies();
     });
+    addAllergyButton?.addEventListener('click', addAllergyGroup);
 });
