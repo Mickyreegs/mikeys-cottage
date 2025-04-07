@@ -45,20 +45,17 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-
-
-
 /*----Shop and Cart sections----*/
 const cartItemsList = document.getElementById('cartItems');
 const totalElement = document.getElementById('cartTotal');
-const cartModal = document.getElementById('cartModal'); 
+const cartModal = document.getElementById('cartModal');
 const modal = new bootstrap.Modal(document.getElementById('cartModal'));
-let cart = []; 
+let cart = [];
 
 // Add event listener to all "Add to Cart" buttons
 document.querySelectorAll('.add-to-cart').forEach(button => {
     button.addEventListener('click', function () {
-        const name = this.getAttribute('data-name'); 
+        const name = this.getAttribute('data-name');
         const price = parseFloat(this.getAttribute('data-price'));
 
         // Check if the item already exists in the cart
@@ -78,14 +75,13 @@ document.querySelectorAll('.add-to-cart').forEach(button => {
         document.querySelector('#cartToast .toast-body').textContent = `${name} has been added to your cart!`;
 
         updateCartDisplay();
-        saveCart(); 
+        saveCart();
     });
 });
 
 function updateCartDisplay() {
     // Clear the cart display
     cartItemsList.innerHTML = '';
-
     let total = 0;
 
     if (cart.length === 0) {
@@ -100,6 +96,12 @@ function updateCartDisplay() {
 
     // Add each cart item to the modal and calculate the total
     cart.forEach((item, index) => {
+        // Validate item data
+        if (!item || typeof item.price !== 'number') {
+            console.error('Invalid cart item:', item);
+            return; // Skip invalid item
+        }
+
         const li = document.createElement('li');
         li.className = 'list-group-item';
 
@@ -133,6 +135,7 @@ function updateCartDisplay() {
             saveCart();
         });
 
+        // Safely set text content
         li.textContent = `${item.name} - €${item.price.toFixed(2)} x `;
         li.appendChild(input);
         li.appendChild(removeButton);
@@ -147,18 +150,23 @@ function updateCartDisplay() {
 
 // Reset toast message when modal is closed
 cartModal.addEventListener('hidden.bs.modal', function () {
-    document.querySelector('#cartToast .toast-body').textContent = ''; 
+    document.querySelector('#cartToast .toast-body').textContent = '';
 });
 
-//Save cart to local storage
+// Save cart to local storage
 function saveCart() {
     localStorage.setItem('cart', JSON.stringify(cart));
 }
 
-//retrieves the cart and displays it on other pages
+// Retrieves the cart and displays it on other pages
 document.addEventListener('DOMContentLoaded', function () {
-    const savedCart = JSON.parse(localStorage.getItem('cart'));
-    if (savedCart) {
+    let savedCart = [];
+    try {
+        savedCart = JSON.parse(localStorage.getItem('cart')) || [];
+    } catch (error) {
+        console.error('Failed to parse cart data from localStorage:', error);
+    }
+    if (savedCart.length > 0) {
         cart = savedCart; // Restore cart
         updateCartDisplay();
     }
