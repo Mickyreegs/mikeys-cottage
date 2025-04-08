@@ -16,8 +16,6 @@
     margin: 10px auto; 
 }
 
-
-
 /* Navbar Styling */
 .navbar {
     background-color: rgb(245, 242, 229); 
@@ -37,9 +35,6 @@
     color: rgb(200, 100, 50) !important; 
     text-decoration: underline; 
 }
-
-
-
 
 /* Slideshow Styling*/
 #slideshow {
@@ -206,44 +201,52 @@
     margin-bottom: 10px; 
 }
 
-/*Shop Section*/
-.shop-section {
-    background-color: rgb(245, 242, 229); 
-    color: rgb(91, 51, 29); 
-    font-family: "Lobster", sans-serif; 
-    text-align: center; 
+/* Shared Styles */
+.shared {
+    background-color: rgb(245, 242, 229);
+    color: rgb(91, 51, 29);
+    font-family: "Lobster", sans-serif;
     padding: 30px 0;
 }
 
-.shop-section h2 {
+.shared h2 {
     font-size: 2rem;
     margin-bottom: 20px;
-    text-shadow: 1px 1px rgb(245, 181, 113); 
+    text-shadow: 1px 1px rgb(245, 181, 113);
+    text-align: center; 
 }
 
-.shop-section .card {
-    background-color: rgb(245, 222, 179); 
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
-    border: none; 
-    transition: transform 0.3s ease; 
+.shared .card {
+    background-color: rgb(245, 222, 179);
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border: none;
+    transition: transform 0.3s ease;
+    text-align: center; 
 }
 
-.shop-section .card:hover {
-    transform: scale(1.05); 
+.shared .card:hover {
+    transform: scale(1.05);
 }
 
-.shop-section .card-title {
-    font-family: "Lobster", sans-serif; 
+.shared .card-title {
+    font-family: "Lobster", sans-serif;
     font-size: 1.2rem;
     margin-bottom: 10px;
 }
 
-.shop-section .card-text {
+.shared .card-text {
     font-family: "Oswald", sans-serif;
     font-size: 1rem;
 }
 
-.shop-section button {
+.shared .card-img-top {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.shared button {
     background-color: rgb(120, 75, 50);
     color: rgb(245, 242, 229);
     font-family: "Lobster", sans-serif;
@@ -253,97 +256,62 @@
     transition: background-color 0.3s ease;
 }
 
-.shop-section button:hover {
+.shared button:hover {
     background-color: rgb(85, 45, 25);
     color: white;
     cursor: pointer;
 }
 
-.shop-section .card-img-top {
-    width: 100%;
-    height: 200px; 
-    object-fit: cover; 
-    border-radius: 5px; 
+/* Bespoke Cakes Section */
+.bespoke-cakes form {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: rgb(245, 242, 229);
+    box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.15);
+    padding: 20px;
+    border-radius: 10px;
 }
 
-.cart-icon-container {
-    position: relative;
-    font-size: 1.5rem;
-    color: rgb(245, 242, 229); 
-    margin-right: 15px; 
-    transition: color 0.3s ease, transform 0.3s ease;
-}
-
-.cart-icon-container i {
-    cursor: pointer;
-    color: rgb(91, 51, 29) !important;
-}
-
-.cart-icon-container:hover {
-    color: rgb(200, 100, 50) !important; 
-    transform: scale(1.1);
-}
-
-
-/*Afternoon Tea Section*/
-.tea-section {
-    background-color: rgb(245, 242, 229); 
-    color: rgb(91, 51, 29); 
-    font-family: "Lobster", sans-serif; 
-    padding: 30px 0;
-}
-
-.tea-section h2 {
-    font-size: 2rem;
-    margin-bottom: 20px;
-    text-shadow: 1px 1px rgb(245, 181, 113); 
-    text-align: center;
-}
-
-.tea-section .card {
-    background-color: rgb(245, 222, 179); 
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
-    border: none;
-    text-align: center; 
-    transition: transform 0.3s ease; 
-}
-
-.tea-section .card:hover {
-    transform: scale(1.05); 
-}
-
-.tea-section .card-title {
-    font-family: "Lobster", sans-serif; 
-    font-size: 1.2rem;
-    margin-bottom: 10px;
-}
-
-.tea-section .card-text {
+.bespoke-cakes label {
     font-family: "Oswald", sans-serif;
+    font-size: 1rem;
+    color: rgb(91, 51, 29);
+    display: block;
+    margin-bottom: 5px;
+}
+
+.bespoke-cakes input,
+.bespoke-cakes textarea {
+    font-family: "Oswald", sans-serif;
+    font-size: 1rem;
+    color: rgb(91, 51, 29);
+    border: 1px solid rgb(245, 181, 113);
+    border-radius: 5px;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    transition: border-color 0.3s ease;
+}
+
+.bespoke-cakes input:focus,
+.bespoke-cakes textarea:focus {
+    border-color: rgb(200, 100, 50);
+    outline: none;
+}
+
+/* Form Container */
+.bespoke-cakes .form-container {
+    padding: 20px;
+    text-align: left;
+}
+
+.bespoke-cakes input[type="file"] {
+    padding: 5px;
     font-size: 1rem;
 }
 
-.tea-section button {
-    background-color: rgb(120, 75, 50);
-    color: rgb(245, 242, 229);
-    font-family: "Lobster", sans-serif;
-    border: none;
-    padding: 10px 20px;
-    font-size: 1.2rem;
-    transition: background-color 0.3s ease;
-}
-
-.tea-section button:hover {
-    background-color: rgb(85, 45, 25);
-    color: white;
-    cursor: pointer;
-}
-
-.tea-section .card-img-top {
-    width: 100%;
-    height: 200px; 
-    object-fit: cover; 
-    border-radius: 5px; 
+.bespoke-cakes textarea {
+    resize: vertical;
 }
 
 

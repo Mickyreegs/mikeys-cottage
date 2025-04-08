@@ -99,7 +99,7 @@ function updateCartDisplay() {
         // Validate item data
         if (!item || typeof item.price !== 'number') {
             console.error('Invalid cart item:', item);
-            return; // Skip invalid item
+            return;
         }
 
         const li = document.createElement('li');
